@@ -1,0 +1,25 @@
+<h1>Facebook Connect</h1>
+{% if facebook_profile and facebook_friends %}
+
+    <h2>You are logged in as: {{ facebook_profile.username }}</h2>
+    <hr />
+    <h2>User info</h2>
+    <img src="http://graph.facebook.com/{{ facebook_profile.id }}/picture" /><br />
+    {{ facebook_profile.name }}
+    <hr />
+
+    <h2>Friends</h2>
+    {% for friend in facebook_friends.data %}
+    <img src="http://graph.facebook.com/{{ friend.id }}/picture" /><br />
+        <p>{{ friend.name }}</p>
+    {% empty %}
+        <p>You have no friends on Facebook.</p>
+    {% endfor %}
+
+{% else %}
+
+    <p>Want to see your Facebook friends?
+    Try <a href="/facebook/login">Facebook Connect</a>
+    </p>
+
+{% endif %}

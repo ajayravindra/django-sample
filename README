@@ -1,0 +1,60 @@
+django mini-project
+===================
+
+Requirements
+------------
+1.
+    a. allow users to register (collect username, email, password)
+    b. users can login
+    c. upon logging in, users have the option to Facebook Connect
+    d. upon connecting with Facebook, show list of friends (name/photo)
+    e. if Facebook Connected at login, show friends list (name/photo)
+    f. use PostgreSQL as the backend database (default port)
+    g. user password is encrypted using SHA1
+
+2. use git
+
+3. use virtualenv and pip to manage dependencies
+
+Installation
+------------
+1. Clone this repo using the following command:
+     git clone git@github.com:ajayravindra/django-sample.git
+
+2. Create a new virtual environment by running the following command:
+     virtualenv --no-site-packages <myenv>
+
+3. Use pip to install all the required dependencies in the virtual environment:
+     pip install -E myenv -r django-sample/pen2/requirements.txt
+
+4. Set up the PostgreSQL database:
+     createdb <database_name>
+     createuser <username> -s <role> -W  ## you will be prompted to enter passwd
+     # update above values in django-sample/pen2/settings.py
+
+5. Switch to the virtual environment:
+     source myenv/bin/activate 
+
+6. Migrate the Django database and start the server:
+     cd django-sample/pen2
+     python manage.py syncdb
+     python manage.py runserver
+
+7. Facebook does not allow callbacks to localhost or 127.0.0.1. In order to
+   test this app on localhost, please add an alias route in /etc/hosts like so:
+
+     127.0.0.1 fstestapp.com
+
+   If you choose a name other than 'fstestapp.com', please also update the new
+   name in pen2/settings.py (variable: LOCALHOST_ALIAS)
+
+Known Issues
+------------
+1. If multiple users login with different usernames, but connect to the same
+   Facebook account, friends list will only be shown for the first account.
+     => ideally, I should disallow such connections in the backend, but we're
+        just playing here, right?
+
+2. I have disabled email authorization of the account. Hence, upon successful
+   account registration, you will NOT receive an email (although the user
+   message says it has sent you an email. You can just go ahead and login.

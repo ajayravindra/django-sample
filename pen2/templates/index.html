@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <html>
+    <head>
+    <title>Login Successful</title>
+    </head>
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <body>
+    {% include "facebook.html" %}
+    </body>
+
+    </html>
+{% else %}
+    <p>You need to login to use this site</p>
+{% endif %}
+{% endblock %}
